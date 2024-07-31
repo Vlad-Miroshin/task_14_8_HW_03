@@ -24,11 +24,11 @@ class UserNew {
     }
 
     public function sessionSave() {
-        $_SESSION['value_user_login'] = $this->login;
-        $_SESSION['value_user_password'] = $this->password;
-        $_SESSION['value_user_password_repeat'] = $this->password_repeat;
-        $_SESSION['value_user_name'] = $this->name;
-        $_SESSION['value_user_email'] = $this->email;
+        $_SESSION['value_user_login'] = $this->login ?? '';
+        $_SESSION['value_user_password'] = $this->password ?? '';
+        $_SESSION['value_user_password_repeat'] = $this->password_repeat ?? '';
+        $_SESSION['value_user_name'] = $this->name ?? '';
+        $_SESSION['value_user_email'] = $this->email ?? '';
     }
 
     public function sessionLoad() {
@@ -48,16 +48,8 @@ class UserNew {
     }
 }
 
-class UserInspector {
-    private UserNew $user;    
-
+class BaseInspector {
     private $messages = [];
-
-
-    public function __construct(UserNew $user)
-    {
-        $this->user = $user;
-    }    
 
     public function hasBrokenRules(): bool {
         return isset($this->messages) && count($this->messages) > 0;
@@ -70,17 +62,30 @@ class UserInspector {
             return '';
     }
 
-    private function setBrokenRule(string $msg): void {
+    protected function setBrokenRule(string $msg): void {
         $this->messages[] = $msg;
     }
+}
+
+class RegisterInspector extends BaseInspector {
+    private UserNew $user;    
+
+    public function __construct(UserNew $user)
+    {
+        $this->user = $user;
+    }    
 
     public function checkRules() {
         if (empty($this->user->login)) {
-            $this->setBrokenRule('Не указано название учётной записи (login)');
+            $this->setBrokenRule('Укажите название учётной записи (login)');
+        }
+
+        if (existsUser($this->user->login)) {
+            $this->setBrokenRule("Пользователь '{$this->user->login}' уже зарегистрирован");
         }
 
         if (empty($this->user->password)) {
-            $this->setBrokenRule('Не указан пароль');
+            $this->setBrokenRule('Укажите пароль');
         }
 
         if ($this->user->password !== $this->user->password_repeat) {
@@ -88,11 +93,35 @@ class UserInspector {
         }
 
         if (empty($this->user->name)) {
-            $this->setBrokenRule('Не указано имя пользователя');
+            $this->setBrokenRule('Укажите имя пользователя');
         }
 
-        if (existsUser($this->user->login)) {
-            $this->setBrokenRule("Пользователь '{$this->user->login}' уже существует");
+    }
+}
+
+class LoginInspector extends BaseInspector {
+    private UserNew $user;    
+
+    public function __construct(UserNew $user)
+    {
+        $this->user = $user;
+    }    
+
+    public function checkRules() {
+        if (empty($this->user->login)) {
+            $this->setBrokenRule('Укажите учётную запись (login)');
+        }
+
+        if (!existsUser($this->user->login)) {
+            $this->setBrokenRule("Пользователь '{$this->user->login}' не зарегистрирован");
+        }
+
+        if (empty($this->user->password)) {
+            $this->setBrokenRule('Укажите пароль');
+        }
+
+        if (!checkPassword($this->user->login, $this->user->password)) {
+            $this->setBrokenRule('Пароль неверен');
         }
     }
 }

@@ -22,7 +22,7 @@ body {
 
     min-height: 100vh;
     color: var(--main-font-color);
-    background: linear-gradient(#f7f6f1, #bebebd);
+    background: linear-gradient(#cccbcb, #aaaaaa);
     background-size: cover;
     background-position: center;
     font-size: 16px;
@@ -151,10 +151,7 @@ main {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     /* box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6); */
     border-radius: 15px;
-}
-
-.login__form.register {
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .login__form h2 {
@@ -197,7 +194,7 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .card {
@@ -250,7 +247,7 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 32px;
     padding: 0 32px;
 }
 
@@ -308,9 +305,20 @@ main {
     opacity: .7;
 }
 
-.note img {
+.note .gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 15px 15px;
+    gap: 16px;
+}
+
+.note .gallery img {
     max-width: 350px;
     height: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 
