@@ -1,0 +1,8 @@
+admin, 123456, admin@spa.info, Администратор
+nik, 123456, nik@mail.test, Николай
+vas, 123456, vas@mail.test, Василий
+petr, 123456, petr@mail.test, Пётр
+ivan,$2y$10$N80P5pYbb5PVgySyGPdcwuVwQrX7T7CFL/lzCgyUw6nexSuJOE92G,ivan@mail.test,Иван
+alla,$2y$10$sBdi.O.frKBFPIz11h0xqOaTXgl3GnxHeLpN2HbL0mxcrhKYViuH.,alla@mail.test,Алла
+ppvlad,$2y$10$QoE95NS21inf1oQaV4wl9ekwluY0Zk9dTTT/uflDFq/VebQTDU2xi,ppvlad@mail.ru,Владислав
+qwerty,$2y$10$UeE9rBKVIm6m09mMPz9ozePruP/T.d15t.NNP0YH/j.17bprce0Wa,,Семён
