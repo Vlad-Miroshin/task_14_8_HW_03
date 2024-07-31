@@ -1,8 +1,9 @@
-admin, 123456, admin@spa.info, Администратор
-nik, 123456, nik@mail.test, Николай
-vas, 123456, vas@mail.test, Василий
-petr, 123456, petr@mail.test, Пётр
+admin,$2y$10$j7N2eXiHBhXTWTYfUeiBgOF6btRAqaaKMyFL2l53vdMtOauaSXBIG,admin@mail.test,Администратор
+nik,$2y$10$aiKMlwAn5Qc8/AHzNDOYG.onhQUbMT30uvCduRKruMdXV.xbMvLqW,nik@mail.test,Николай
+vas,$2y$10$ATPPQbbCb6pU0PsTdmOStuHBSSSJQ/dZH29lSlu6u40Cj5gJxIv6a,vas@mail.test,Василий
+petr,$2y$10$HDPe4mX2uvFJx7KvhT5vm.TK.rNRdptzZrIOGIwbbZaEfQzNdirAK,petr@mail.test,Пётр
 ivan,$2y$10$N80P5pYbb5PVgySyGPdcwuVwQrX7T7CFL/lzCgyUw6nexSuJOE92G,ivan@mail.test,Иван
 alla,$2y$10$sBdi.O.frKBFPIz11h0xqOaTXgl3GnxHeLpN2HbL0mxcrhKYViuH.,alla@mail.test,Алла
 ppvlad,$2y$10$QoE95NS21inf1oQaV4wl9ekwluY0Zk9dTTT/uflDFq/VebQTDU2xi,ppvlad@mail.ru,Владислав
 qwerty,$2y$10$UeE9rBKVIm6m09mMPz9ozePruP/T.d15t.NNP0YH/j.17bprce0Wa,,Семён
+lora,$2y$10$OHUFBgHXwPNX4mlcDPQ59urbQeDQsuFg3sA2Ybn040Aha83Nw7CYm,lora@mail.test,Лариса

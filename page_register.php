@@ -3,8 +3,10 @@ session_start();
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
-
+$user = new UserNew();
+$user->sessionLoad();
 ?>
 
 <!DOCTYPE html>
@@ -22,22 +24,20 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
 <body>
     <main>
 
-        
-
         <form class="login__form register" action="register.php" method="post">
             <h2>Регистрация пользователя</h2>
             <label>Учётная запись (login)</label>
-            <input type="text" name="user_login" required>
+            <input type="text" name="user_login" value="<?= $user->login; ?>" required>
             <br>
             <label>Пароль</label>
-            <input type="password" name="user_pass">
-            <label>Повторить пароль</label>
-            <input type="password" name="user_pass_repeat">
+            <input type="password" name="user_pass" value="<?= $user->password; ?>">
+            <label>Повторите пароль</label>
+            <input type="password" name="user_pass_repeat" value="<?= $user->password_repeat; ?>">
             <br>
-            <label>Как вас называть? (имя)</label>
-            <input type="text" name="user_name" required>
+            <label>Как вас называть? (Имя)</label>
+            <input type="text" name="user_name" value="<?= $user->name; ?>" required>
             <label>Электронная почта</label>
-            <input type="text" name="user_email">
+            <input type="text" name="user_email" value="<?= $user->email; ?>">
             <br>
             <?php flash(); ?>
             <br>
@@ -48,7 +48,7 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
         <h3>Существующие пользователи</h3>
         <ul>
             <?php 
-                $all_users = getAllUsers();
+                $all_users = getUsersList();
 
                 foreach ($all_users as $user): 
              ?>

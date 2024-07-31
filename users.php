@@ -6,7 +6,7 @@ function getConfig() {
     return $config;
 }
 
-function getAllUsers(): array {
+function getUsersList(): array {
     $config = getConfig();
 
     if (($handle = fopen($config['file_path_users'], "r")) !== FALSE) {
@@ -43,4 +43,29 @@ function addUser(UserNew $user): void {
     }    
 
     return;
+}
+
+function getUser(string $login): User|null {
+    $all_users = getUsersList();
+
+    foreach ($all_users as $user) {
+        if ($user->login === $login) {
+            return $user;
+        }
+    }
+
+    return null;
+}
+
+function existsUser(string $login): bool {
+    return getUser($login) !== null;
+}
+
+function checkPassword(string $login, string $password): bool {
+    $user = getUser($login);
+
+    if (isset($user))
+        return $user->verifyPassword($password);
+    else
+        return false;
 }

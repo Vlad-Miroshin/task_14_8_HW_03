@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
 
@@ -13,11 +15,13 @@ $ui = new UserInspector($user);
 $ui->checkRules();
 
 if (!$ui->hasBrokenRules()) {
+    $user->sessionUnset();
     addUser($user);
 } 
 else 
 {
     flash($ui->getBrokenRulesAsString('<br>'));
+    $user->sessionSave();
 }
 
 header('Location: page_register.php');
