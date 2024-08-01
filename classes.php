@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
 
 class User {
     public string $login;    
@@ -124,4 +124,11 @@ class LoginInspector extends BaseInspector {
             $this->setBrokenRule('Пароль неверен');
         }
     }
+}
+
+class Product {
+    public string $id;
+    public string $image;
+    public string $title;
+    public string $description_short;
 }

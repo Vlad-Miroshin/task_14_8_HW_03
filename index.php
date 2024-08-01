@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
+
+$all_products = getProductsList();
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -20,9 +30,11 @@
             <li><a href="#">Услуги <i class="fas fa-caret-down"></i></a>
                 <div class="dropdown__menu">
                     <ul>
-                        <li><a href="#">Для кошек</a></li>
-                        <li><a href="#">Для собак</a></li>
-                        <li><a href="#">Прочее</a></li>
+                        <?php
+                            foreach ($all_products as $prod):
+                        ?>
+                            <li><a href="#"><?= $prod->title; ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </li>
@@ -72,87 +84,24 @@
 
 
         <div class="card-container">
+            <?php
+                foreach ($all_products as $prod):
+            ?>
+
             <div class="card">
-                <img src="./assets/images/prod_1.jpeg" alt="Терапия водой">
+
+                <?php if (!empty($prod->image)): ?>
+                    <img src="<?= './assets/images/' . $prod->image ?>" alt="<?= $prod->title ?>">
+                <?php endif; ?>
+
                 <div class="card-content">
-                    <h3>Купание</h3>
-                    <p>Это одна из самых распространенных спа-процедур для животных. Купание помогает убрать грязь и запахи с шерсти животного, а также улучшить состояние его кожи и шерсти.</p>
+                    <h3><?= $prod->title ?></h3>
+                    <p><?= $prod->description_short ?></p>
                     <!-- <a href="#" class="btn">Узнать больше</a> -->
                 </div>
             </div>
 
-            <div class="card">
-                <img src="./assets/images/prod_2.jpeg" alt="Ароматерапия">
-                <div class="card-content">
-                    <h3>Ароматерапия</h3>
-                    <p>Использует ароматические масла для создания расслабляющей атмосферы для животного. Может быть полезна для снятия стресса и напряжения.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="./assets/images/prod_3.jpeg" alt="Готовые рационы">
-                <div class="card-content">
-                    <h3>Готовые рационы</h3>
-                    <p>Наши специалисты подберут сбалансированные рационы для ваших питомцев, с учётом возраста, веса и темперамента.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Терапия водой</h3>
-                    <p>Может улучшить состояние кожи и шерсти животного, а также снять стресс и напряжение.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Стрижка</h3>
-                    <p>Позволяет поддерживать определенную длину и форму шерсти животного. Стрижка может быть полезна для пород собак, которые имеют густую и длинную шерсть.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Массаж</h3>
-                    <p>Может улучшить кровообращение и снять напряжение у животных. Массаж может быть особенно полезен для животных, которые страдают от боли в мышцах и суставах.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Чистка зубов</h3>
-                    <p>Направлена на удаление зубного налета и предотвращение развития заболеваний полости рта у животных.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Груминг сушка</h3>
-                    <p>Камера для сушки шерсти - это специальное устройство, которое используется для быстрой и эффективной сушки домашних питомцев после купания и груминг-процедур.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
-            <div class="card">
-                <!-- <img src="./assets/images/prod_5.png" alt="Готовые рационы"> -->
-                <div class="card-content">
-                    <h3>Аква-терапия</h3>
-                    <p>Проводится в специальном бассейне и направлена на улучшение здоровья и физической формы животного. Аква-терапия может быть особенно полезна для животных, которые страдают от боли в суставах или имеют проблемы со здоровьем кожи и шерсти.</p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
-                </div>
-            </div>
-
+            <?php endforeach; ?>
         </div>
 
 

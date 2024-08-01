@@ -2,7 +2,7 @@
 session_start();
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'users.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
 
 $user = new UserNew();
 $user->login = $_POST['user_login'] ?? '';

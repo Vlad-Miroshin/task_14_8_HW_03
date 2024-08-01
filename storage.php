@@ -9,6 +9,8 @@ function getConfig() {
 function getUsersList(): array {
     $config = getConfig();
 
+    $all_users = [];
+
     if (($handle = fopen($config['file_path_users'], "r")) !== FALSE) {
 
         while (($data = fgetcsv($handle)) !== FALSE) {
@@ -68,4 +70,24 @@ function checkPassword(string $login, string $password): bool {
         return $user->verifyPassword($password);
     else
         return false;
+}
+
+function getProductsList(): array {
+    $config = getConfig();
+
+    $all_products = [];
+
+    $data = json_decode(file_get_contents($config['file_path_data']), true);
+
+    foreach ($data['products'] as $prod_data) {
+        $prod = new Product();
+        $prod->id = $prod_data['id'];
+        $prod->image = $prod_data['image'];
+        $prod->title = $prod_data['title'];
+        $prod->description_short = $prod_data['description_short'];
+
+        $all_products[] = $prod;
+    }
+
+    return $all_products;
 }
