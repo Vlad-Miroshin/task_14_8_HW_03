@@ -5,7 +5,7 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
-$user = new UserNew();
+$user = new User();
 $user->sessionLoad();
 ?>
 
@@ -35,6 +35,8 @@ $user->sessionLoad();
             <input type="text" name="user_name" value="<?= $user->name; ?>" required>
             <label>Электронная почта</label>
             <input type="text" name="user_email" value="<?= $user->email; ?>">
+            <label>Дата рождения</label>
+            <input type="date" name="user_birthday">
             <br>
             <?php flash(); ?>
             <br>

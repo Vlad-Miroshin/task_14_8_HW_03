@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
 
-$user = new UserNew();
+$user = new User();
 $user->login = $_POST['user_login'] ?? '';
 $user->password = $_POST['user_pass'] ?? '';
 
@@ -21,7 +21,7 @@ else
 {
     $user->sessionUnset();
 
-    $_SESSION['current_user'] = $user->login;
+    setCurrentUser($user);
 
     header('Location: index.php');
 }

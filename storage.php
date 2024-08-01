@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
 function getConfig() {
-    $config = include __DIR__.DIRECTORY_SEPARATOR.'config.php';
+    $config = include __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
     return $config;
 }
 
@@ -16,9 +16,10 @@ function getUsersList(): array {
         while (($data = fgetcsv($handle)) !== FALSE) {
             $user = new User();
             $user->login = trim($data[0]);
-            $user->pwdhash = trim($data[1]);
+            $user->password_hash = trim($data[1]);
             $user->email = trim($data[2]);
             $user->name = trim($data[3]);
+            $user->birthday = $data[4];
 
             $all_users[] = $user;
         }
@@ -29,16 +30,17 @@ function getUsersList(): array {
     return $all_users;
 }
 
-function addUser(UserNew $user): void {
+function addUser(User $user): void {
     $config = getConfig();
 
-    if (($handle = fopen($config['file_path_users'], "a")) !== FALSE) {
+    if (($handle = fopen($config['file_path_users'], "a")) !== false) {
 
         fputcsv($handle, [
             $user->login, 
             $user->getPasswordHash(), 
             $user->email, 
             $user->name, 
+            $user->birthday
         ]);
 
         fclose($handle);
@@ -100,4 +102,29 @@ function getProd($id, $collection): Product|null {
     }
 
     return null;
+}
+
+function getCurrentUser(): User|null {
+    $login = $_SESSION['current_user_login'] ?? '';
+
+    if (!empty($login)) {
+        $user =  getUser($login);
+        $user->loginTime = $_SESSION['current_user_login_time'];
+
+        return $user;
+    } else {
+        return null;
+    }
+}
+
+function setCurrentUser(User $user) {
+    $user->loginTime = time();
+
+    $_SESSION['current_user_login'] = $user->login;
+    $_SESSION['current_user_login_time'] = $user->loginTime;
+}
+
+function resetCurrentUser() {
+    unset($_SESSION['current_user_login']);
+    unset($_SESSION['current_user_login_time']);
 }

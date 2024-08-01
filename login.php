@@ -4,7 +4,7 @@ session_start();
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
-$user = new UserNew();
+$user = new User();
 $user->sessionLoad();
 ?>
 
@@ -30,6 +30,7 @@ $user->sessionLoad();
             <br>
             <?php flash(); ?>
             <br>
+            <a href="register.php">Зарегистрироваться</a>
             <button type="submit">Войти</button>
         </form>
 

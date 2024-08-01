@@ -3,24 +3,20 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
 
 class User {
     public string $login;    
-    public string $pwdhash; 
-    public string $email; 
-    public string $name;
-
-    public function verifyPassword(string $password): bool {
-        return password_verify($password, $this->pwdhash);
-    }
-}
-
-class UserNew {
-    public string $login;    
     public string $password; 
     public string $password_repeat; 
+    public string $password_hash; 
     public string $email; 
     public string $name; 
+    public string $birthday;
+    public int $loginTime;
 
     public function getPasswordHash(): string {
         return password_hash($this->password, PASSWORD_DEFAULT);
+    }
+
+    public function verifyPassword(string $password): bool {
+        return password_verify($password, $this->password_hash);
     }
 
     public function sessionSave() {
@@ -29,6 +25,7 @@ class UserNew {
         $_SESSION['value_user_password_repeat'] = $this->password_repeat ?? '';
         $_SESSION['value_user_name'] = $this->name ?? '';
         $_SESSION['value_user_email'] = $this->email ?? '';
+        $_SESSION['value_user_birthday'] = $this->birthday ?? '';
     }
 
     public function sessionLoad() {
@@ -37,6 +34,7 @@ class UserNew {
         $this->password_repeat = $_SESSION['value_user_password_repeat'] ?? '';
         $this->name = $_SESSION['value_user_name'] ?? '';
         $this->email = $_SESSION['value_user_email'] ?? '';
+        $this->birthday = $_SESSION['value_user_birthday'] ?? '';
     }
 
     public function sessionUnset() {
@@ -45,11 +43,18 @@ class UserNew {
         unset($_SESSION['value_user_password_repeat']);
         unset($_SESSION['value_user_name']);
         unset($_SESSION['value_user_email']);
+        unset($_SESSION['value_user_birthday']);
     }
 }
 
 class BaseInspector {
+    protected User $user;    
     private $messages = [];
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }    
 
     public function hasBrokenRules(): bool {
         return isset($this->messages) && count($this->messages) > 0;
@@ -68,12 +73,6 @@ class BaseInspector {
 }
 
 class RegisterInspector extends BaseInspector {
-    private UserNew $user;    
-
-    public function __construct(UserNew $user)
-    {
-        $this->user = $user;
-    }    
 
     public function checkRules() {
         if (empty($this->user->login)) {
@@ -82,6 +81,7 @@ class RegisterInspector extends BaseInspector {
 
         if (existsUser($this->user->login)) {
             $this->setBrokenRule("Пользователь '{$this->user->login}' уже зарегистрирован");
+            return; // дальше не проверяем
         }
 
         if (empty($this->user->password)) {
@@ -100,12 +100,6 @@ class RegisterInspector extends BaseInspector {
 }
 
 class LoginInspector extends BaseInspector {
-    private UserNew $user;    
-
-    public function __construct(UserNew $user)
-    {
-        $this->user = $user;
-    }    
 
     public function checkRules() {
         if (empty($this->user->login)) {

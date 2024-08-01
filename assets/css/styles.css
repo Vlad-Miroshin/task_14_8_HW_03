@@ -190,6 +190,20 @@ main {
     opacity: .7;
 }
 
+.login__form a {
+    display: inline-block;
+    color: var(--main-font-color); 
+    text-decoration: none;
+    padding: 5px 10px;
+
+    transition: all .3s;
+}
+
+.login__form a:hover {
+    color: var(--color-primary);
+}
+
+
 .card-container {
     display: flex;
     justify-content: center;

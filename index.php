@@ -24,9 +24,7 @@ shuffle($all_products);
             <li><a href="#">Услуги <i class="fas fa-caret-down"></i></a>
                 <div class="dropdown__menu">
                     <ul>
-                        <?php
-                            foreach ($all_products as $prod):
-                        ?>
+                        <?php foreach ($all_products as $prod): ?>
                             <li><a href="prod.php?id=<?= $prod->id; ?>"><?= $prod->title; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
@@ -41,9 +39,7 @@ shuffle($all_products);
     <main>
 
         <div class="card-container">
-            <?php
-                foreach ($all_products as $prod):
-            ?>
+            <?php foreach ($all_products as $prod): ?>
 
             <div class="card">
 
@@ -54,7 +50,6 @@ shuffle($all_products);
                 <div class="card-content">
                     <h3><?= $prod->title ?></h3>
                     <p><?= $prod->description_short ?></p>
-                    <!-- <a href="#" class="btn">Узнать больше</a> -->
                 </div>
             </div>
 
