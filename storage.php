@@ -91,3 +91,13 @@ function getProductsList(): array {
 
     return $all_products;
 }
+
+function getProd($id, $collection): Product|null {
+    foreach ($collection as $prod) {
+        if ($prod->id === $id) {
+            return $prod;
+        }
+    }
+
+    return null;
+}

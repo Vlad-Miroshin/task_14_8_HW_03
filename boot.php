@@ -15,3 +15,7 @@ function flash(?string $message = null)
         unset($_SESSION['flash']);
     }
 }
+
+function include_template($file_name) {
+    include __DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $file_name;
+}
