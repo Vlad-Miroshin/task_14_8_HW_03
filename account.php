@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
 $user = getCurrentUser();
 if ($user === null) {
@@ -17,6 +17,8 @@ $remain = $target - $now;
 if ($remain > 0) {
     $diff = seconds2times($target - $now);
 }
+
+$cong = getRandomCongratulation();
 ?>
 
 <!DOCTYPE html>
@@ -53,8 +55,14 @@ if ($remain > 0) {
             <?php endif; ?>
 
             <div class="note">
-                <p>У Вас сегодня день рождения, поздравляем!
-                    <br><br>
+                <p>У Вас день рождения, поздравляем!</p>
+                <?php if ($cong !== null): ?>
+                    <br>
+                    <p><?= $cong->text; ?></p>
+                <?php endif; ?>
+                
+                <br>
+                <p>
                     Для Вас <span class="discount">скидка 5%</span> на все услуги салона.
                 </p>
             </div>

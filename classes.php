@@ -126,3 +126,8 @@ class Product {
     public string $title;
     public string $description_short;
 }
+
+class Congratulation {
+    public string $id;
+    public string $text;
+}

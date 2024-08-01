@@ -128,3 +128,39 @@ function resetCurrentUser() {
     unset($_SESSION['current_user_login']);
     unset($_SESSION['current_user_login_time']);
 }
+
+function getCongratulationList(): array {
+    $config = getConfig();
+
+    $all_items = [];
+
+    $data = json_decode(file_get_contents($config['file_path_congratulation']), true);
+
+    foreach ($data['congratulation'] as $item) {
+        $con = new Congratulation();
+        $con->id = $item['id'];
+        $con->text = $item['text'];
+
+        $all_items[] = $con;
+    }
+
+    return $all_items;
+}
+
+function getCongratulation($id): Congratulation|null {
+    $collection = getCongratulationList();
+
+    foreach ($collection as $con) {
+        if ($con->id === $id) {
+            return $con;
+        }
+    }
+
+    return null;
+}
+
+function getRandomCongratulation(): Congratulation|null {
+    $collection = getCongratulationList();
+
+    return $collection[rand(0, count($collection) - 1)];
+}

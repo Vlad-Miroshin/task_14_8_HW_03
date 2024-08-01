@@ -7,6 +7,8 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
 $user = new User();
 $user->sessionLoad();
+
+$all_users = getUsersList();
 ?>
 
 <!DOCTYPE html>
@@ -47,8 +49,6 @@ $user->sessionLoad();
         <h3>Существующие пользователи</h3>
         <ul>
             <?php 
-                $all_users = getUsersList();
-
                 foreach ($all_users as $user): 
              ?>
             <li>
