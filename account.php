@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
@@ -10,13 +8,8 @@ if ($user === null) {
     header('Location: login.php');
 }
 
-$target = $user->loginTime + 24 * 60 * 60;
-$now = time();
-$remain = $target - $now;
-
-if ($remain > 0) {
-    $diff = seconds2times($target - $now);
-}
+$disc_login = new DiscountForLogin($user->loginTime);
+$disc_birthday = new DiscountForBirthday($user->birthday);
 
 $cong = getRandomCongratulation();
 ?>
@@ -44,28 +37,42 @@ $cong = getRandomCongratulation();
                 <p>Вы вошли как: <?= $user->name ?> (<?= $user->login ?>).</p>
             </div>
 
-            <?php if ($remain > 0): ?>
+            <?php if ($disc_login->isActive()): ?>
                 <div class="note">
                     <p>
                         Для Вас персональная скидка <span class="discount">5%</span> на любую услугу салона, при заказе на сайте.
                         <br>
-                        Скидка действует 24 часа с момента входа на сайт. Осталось <?= sprintf("%02d:%02d:%02d", $diff[2], $diff[1], $diff[0]); ?> до истечения предложения.
+                        Скидка действует <?= $disc_login->durationHours(); ?> часа с момента входа на сайт. Осталось 
+                        <?= sprintf("%02d:%02d:%02d", $disc_login->remainHours(), $disc_login->remainMinutes(), $disc_login->remainSeconds()); ?> 
+                        до истечения предложения.
                     </p>
                 </div>
             <?php endif; ?>
 
-            <div class="note">
-                <p>У Вас день рождения, поздравляем!</p>
-                <?php if ($cong !== null): ?>
+            <?php if ($disc_birthday->isActive()): ?>
+                <div class="note">
+                    <p>У Вас день рождения, поздравляем!</p>
+                    <?php if ($cong !== null): ?>
+                        <br>
+                        <p><?= $cong->text; ?></p>
+                    <?php endif; ?>
+                    
                     <br>
-                    <p><?= $cong->text; ?></p>
-                <?php endif; ?>
-                
-                <br>
-                <p>
-                    Для Вас <span class="discount">скидка 5%</span> на все услуги салона.
-                </p>
-            </div>
+                    <p>
+                        Для Вас <span class="discount">скидка 5%</span> на все услуги салона.
+                    </p>
+                </div>
+            <?php elseif ($disc_birthday->daysBeforeBirthday() > 0): ?>
+                    <div class="note">
+                        <p>Дней до вашего дня рождения осталось: <?= $disc_birthday->daysBeforeBirthday(); ?></p>
+                        <br>
+                        <p>
+                            Мы подготовим специальную скидку, которая будет действовать ещё <?= $disc_birthday->durationDays(); ?> дней после этой даты.
+                            <br>
+                            Будем рады видеть Вас в нашем салоне.
+                        </p>
+                    </div>
+            <?php endif; ?>
 
 
         </div>

@@ -4,6 +4,10 @@ session_start();
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
+if (getCurrentUser() !== null) {
+    header('Location: index.php');
+}
+
 $user = new User();
 $user->sessionLoad();
 ?>

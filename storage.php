@@ -19,7 +19,7 @@ function getUsersList(): array {
             $user->password_hash = trim($data[1]);
             $user->email = trim($data[2]);
             $user->name = trim($data[3]);
-            $user->birthday = $data[4];
+            $user->birthday = trim($data[4]);
 
             $all_users[] = $user;
         }

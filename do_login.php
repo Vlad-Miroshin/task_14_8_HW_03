@@ -23,5 +23,5 @@ else
 
     setCurrentUser($user);
 
-    header('Location: index.php');
+    header('Location: account.php');
 }
