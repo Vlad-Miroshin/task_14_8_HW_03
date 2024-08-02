@@ -11,7 +11,7 @@ $all_products = getProductsList();
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <?php include_template('head.html'); ?>
+    <?php include_html('head.html'); ?>
 </head>
 <body>
     <header class="menu__bar">
@@ -59,7 +59,7 @@ $all_products = getProductsList();
 
         </div>
 
-        <?php include_template('footer.html'); ?>
+        <?php include_html('footer.html'); ?>
         
     </main>
 

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'menu.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
@@ -10,28 +11,16 @@ shuffle($all_products);
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <?php include_template('head.html'); ?>
+    <?php include_html('head.html'); ?>
 </head>
 <body>
     <header class="menu__bar">
-        <h1 class="logo">Pets<span>SPA.</span></h1>
-
-        <ul>
-            <li><a href="#">Главная</a></li>
-            <li><a href="about.php">О нас</a></li>
-            <li><a href="#">Услуги <i class="fas fa-caret-down"></i></a>
-                <div class="dropdown__menu">
-                    <ul>
-                        <?php foreach ($all_products as $prod): ?>
-                            <li><a href="prod.php?id=<?= $prod->id; ?>"><?= $prod->title; ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="account.php">Личный кабинет</a></li>
-            <li><a href="login.php">Войти</a></li>
-            <li><a href="#">Выйти</a></li>
-        </ul>
+        <?php
+            create_menu([
+                'page' => 'index',
+                'products' => $all_products
+            ]);
+        ?>
     </header>
 
     <main>
@@ -55,7 +44,7 @@ shuffle($all_products);
         </div>
 
 
-        <?php include_template('footer.html'); ?>
+        <?php include_html('footer.html'); ?>
         
     </main>
 

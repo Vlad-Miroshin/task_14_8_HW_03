@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
 if (getCurrentUser() !== null) {
     header('Location: index.php');
@@ -15,7 +15,7 @@ $user->sessionLoad();
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <?php include_template('head.html'); ?>
+    <?php include_html('head.html'); ?>
 </head>
 <body>
     <header class="menu__bar">
@@ -38,7 +38,7 @@ $user->sessionLoad();
             <button type="submit">Войти</button>
         </form>
 
-        <?php include_template('footer.html'); ?>
+        <?php include_html('footer.html'); ?>
     </main>
 
 </body>

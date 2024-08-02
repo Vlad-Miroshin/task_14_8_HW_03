@@ -16,7 +16,7 @@ function flash(?string $message = null)
     }
 }
 
-function include_template($file_name) {
+function include_html($file_name) {
     include __DIR__ . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $file_name;
 }
 
