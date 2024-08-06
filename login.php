@@ -2,6 +2,7 @@
 session_start();
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'menu.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
 if (getCurrentUser() !== null) {
@@ -19,7 +20,11 @@ $user->sessionLoad();
 </head>
 <body>
     <header class="menu__bar">
-        <h1 class="logo">Pets<span>SPA.</span></h1>
+        <?php
+            create_menu([
+                'page' => 'login'
+            ]);
+        ?>
     </header>
 
     <main>

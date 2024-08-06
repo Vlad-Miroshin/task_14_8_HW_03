@@ -260,10 +260,19 @@ class DiscountForBirthday {
         return $this->days_before_birthday;
     }
 
+    private function getTitle(int $n, array $titles): string {
+        $cases = array(2, 0, 1, 1, 1, 2);
+        return $titles[($n % 100 > 4 && $n % 100 < 20) ? 2 : $cases[min($n % 10, 5)]];
+    }
 
-    private function daysBetween($time_1, $time_2)
+    public function daysBeforeAsString(): string {
+        return $this->days_before_birthday . ' ' . $this->getTitle($this->days_before_birthday, ['день', 'дня', 'дней']);
+    }
+
+    private function daysBetween(int $time_1, int $time_2)
     {
         $seconds = $time_2 - $time_1;
         return floor($seconds / 86400);
     }
+
 }

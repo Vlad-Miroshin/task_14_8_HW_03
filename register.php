@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
-require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'menu.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
 $user = new User();
 $user->sessionLoad();
@@ -18,7 +19,11 @@ $all_users = getUsersList();
 </head>
 <body>
     <header class="menu__bar">
-        <h1 class="logo">Pets<span>SPA.</span></h1>
+        <?php
+            create_menu([
+                'page' => 'register'
+            ]);
+        ?>
     </header>
 
     <main>

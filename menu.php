@@ -44,8 +44,10 @@ $user = getCurrentUser();
                         </ul>
                     </div>
                 </li>
-            <?php else: ?>
-                <li><a href="login.php">Войти</a></li>
+            <?php elseif ($page !== 'login'): ?>
+                <li><a href="login.php">Вход</a></li>
+            <?php elseif ($page === 'login'): ?>
+                <li><a href="register.php">Регистрация</a></li>
             <?php endif; ?>
 
         </ul>

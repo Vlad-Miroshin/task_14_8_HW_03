@@ -64,7 +64,7 @@ $cong = getRandomCongratulation();
                 </div>
             <?php elseif ($disc_birthday->daysBeforeBirthday() > 0): ?>
                     <div class="note">
-                        <p>Дней до вашего дня рождения осталось: <?= $disc_birthday->daysBeforeBirthday(); ?></p>
+                        <p>До вашего дня рождения осталось: <?= $disc_birthday->daysBeforeAsString(); ?></p>
                         <br>
                         <p>
                             Мы подготовим специальную скидку, которая будет действовать ещё <?= $disc_birthday->durationDays(); ?> дней после этой даты.
