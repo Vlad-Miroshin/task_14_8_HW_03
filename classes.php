@@ -182,9 +182,6 @@ class DiscountForLogin {
         return $this->remain_seconds;
     }
 
-    /**
-    * ВНИМАНИЕ: в функции ошибка (если аргумент равен элементу массива ниже возвращает 0)
-    */
     private function seconds2times($seconds): array
     {
         $times = array();

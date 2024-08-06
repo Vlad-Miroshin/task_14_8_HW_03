@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'boot.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'menu.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'storage.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'classes.php';
 
@@ -21,12 +22,11 @@ $cong = getRandomCongratulation();
 </head>
 <body>
     <header class="menu__bar">
-        <h1 class="logo">Pets<span>SPA.</span></h1>
-
-        <ul>
-            <li><a href="index.php">Главная</a></li>
-            <li><a href="do_logout.php">Выйти</a></li>
-        </ul>
+        <?php
+            create_menu([
+                'page' => 'account'
+            ]);
+        ?>
     </header>
 
     <main>

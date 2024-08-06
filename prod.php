@@ -2,6 +2,7 @@
 session_start();
 
 require_once __DIR__.DIRECTORY_SEPARATOR.'boot.php';
+require_once __DIR__.DIRECTORY_SEPARATOR.'menu.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'storage.php';
 require_once __DIR__.DIRECTORY_SEPARATOR.'classes.php';
 
@@ -21,26 +22,12 @@ if ($current_prod === null) {
 </head>
 <body>
     <header class="menu__bar">
-        <h1 class="logo">Pets<span>SPA.</span></h1>
-
-        <ul>
-            <li><a href="index.php">Главная</a></li>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Услуги <i class="fas fa-caret-down"></i></a>
-                <div class="dropdown__menu">
-                    <ul>
-                        <?php
-                            foreach ($all_products as $prod):
-                        ?>
-                            <li><a href="prod.php?id=<?= $prod->id; ?>"><?= $prod->title; ?></a></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </li>
-            <li><a href="#">Личный кабинет</a></li>
-            <li><a href="login.php">Войти</a></li>
-            <li><a href="#">Выйти</a></li>
-        </ul>
+        <?php
+            create_menu([
+                'page' => 'prod',
+                'products' => $all_products
+            ]);
+        ?>
     </header>
 
     <main>

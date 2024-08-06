@@ -118,7 +118,7 @@ main {
 }
 
 .menu__bar ul li:hover .dropdown__menu ul li {
-    width: 150px;
+    width: 250px;
     padding: 10px;
 }
 
